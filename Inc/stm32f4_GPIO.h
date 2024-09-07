@@ -9,7 +9,7 @@
 #define INC_STM32F4_GPIO_H_
 #include "stm32f4xx.h"
 
-
+							/***Config and Handle ***/
 typedef struct{
 	uint8_t GPIO_PinNumber;
 	uint8_t GPIO_PinMode;
@@ -25,7 +25,7 @@ typedef struct{
 }GPIO_Handle_t;
 
 
-/*DEFINE LOCATE{ */
+/*{ */
 //PinNo
 #define GPIO_PIN_0                 0  /* Pin 0 selected    */
 #define GPIO_PIN_1                 1 /* Pin 1 selected    */

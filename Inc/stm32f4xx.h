@@ -61,12 +61,18 @@
 /*}*/
 /*//define peripheral address*/
 /* APB1*/
+//UART
 #define USART2_BASEADDR (APB1_BASEADDR+0x4400)
 #define USART3_BASEADDR (APB1_BASEADDR+0x4800)
 #define UART4_BASEADDR	(APB1_BASEADDR+0x4C00)
 #define UART5_BASEADDR	(APB1_BASEADDR+0x5000)
 #define UART7_BASEADDR	(APB1_BASEADDR+0x7800)
 #define UART8_BASEADDR	(APB1_BASEADDR+0x7C00)
+
+//I2C
+#define I2C1_BASEADDR	(APB1_BASEADDR+0x5400)
+#define I2C2_BASEADDR	(APB1_BASEADDR+0x5800)
+#define I2C3_BASEADDR	(APB1_BASEADDR+0x5C00)
 
 /* APB2*/
 #define USART1_BASEADDR (APB2_BASEADDR+0x1000)
@@ -156,7 +162,7 @@ typedef struct{
 	volatile uint32_t CMPCR;
 }SYSCFG_Register_t;
 #define SYSCFG ((SYSCFG_Register_t *)SYSCFG_BASEADDR)
-//UART{
+//**UART register{
 typedef struct{
 	volatile uint32_t SR;
 	volatile uint32_t DR;
@@ -176,6 +182,25 @@ typedef struct{
 #define UART7 ((USART_Register_t *)UART7_BASEADDR)
 #define UART8 ((USART_Register_t *)UART8_BASEADDR)
 //}
+
+//**I2C**{
+typedef struct{
+	volatile uint32_t CR1;
+	volatile uint32_t CR2;
+	volatile uint32_t OAR1;
+	volatile uint32_t OAR2;
+	volatile uint32_t DR;
+	volatile uint32_t SR1;
+	volatile uint32_t SR2;
+	volatile uint32_t CCR;
+	volatile uint32_t TRISE;
+	volatile uint32_t FLTR;
+}I2C_Register_t;
+
+#define I2C1 ((I2C_Register_t *)I2C1_BASEADDR)
+#define I2C2 ((I2C_Register_t *)I2C2_BASEADDR)
+#define I2C3 ((I2C_Register_t *)I2C3_BASEADDR)
+
 /*Clock enable and disable for GPIO */
 /*Enable Begin*/
 #define GPIOA_PCLK_EN() (RCC->AHB1ENR |= (1<<0))
@@ -260,6 +285,14 @@ typedef struct{
 #define UART8_PCLK_DIS()  (RCC->APB1ENR &=~(1<<31))
 /*Disable End*/
 
+/*Clock enable and disable  for I2C*/
+#define I2C1_PCLK_EN()	(RCC->APB1ENR |=(1<<21))
+#define I2C2_PCLK_EN()	(RCC->APB1ENR |=(1<<22))
+#define I2C3_PCLK_EN()	(RCC->APB1ENR |=(1<<23))
+
+#define I2C1_PCLK_DIS()	(RCC->APB1ENR &=~(1<<21))
+#define I2C2_PCLK_DIS()	(RCC->APB1ENR &=~(1<<22))
+#define I2C3_PCLK_DIS()	(RCC->APB1ENR &=~(1<<23))
 
 /*****************/
 /*Clock enable and disable for SYSCFG*/

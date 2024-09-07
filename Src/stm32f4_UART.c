@@ -8,7 +8,6 @@
 
 #include <stm32f4_UART.h>
 #include <stm32f4_RCC.h>
-#include <stddef.h>
 
 void USART_ClockControl(USART_Register_t *pUSARTx,uint8_t EN_DIS){
 	if(EN_DIS==ENABLE){
@@ -37,6 +36,33 @@ void USART_ClockControl(USART_Register_t *pUSARTx,uint8_t EN_DIS){
 			UART8_PCLK_EN();
 		}
 	}
+	else {
+		if (pUSARTx==USART1){
+			USART1_PCLK_DIS();
+		}
+		else if(pUSARTx==USART2){
+			USART2_PCLK_DIS();
+		}
+		else if(pUSARTx==USART3){
+			USART3_PCLK_DIS();
+		}
+		else if(pUSARTx==UART4){
+			UART4_PCLK_DIS();
+		}
+		else if(pUSARTx==UART5){
+			UART5_PCLK_DIS();
+		}
+		else if(pUSARTx==USART6){
+			USART6_PCLK_DIS();
+		}
+		else if(pUSARTx==UART7){
+			UART7_PCLK_DIS();
+		}
+		else if(pUSARTx==UART8){
+			UART8_PCLK_DIS();
+		}
+	}
+
 }
 void USART_Init(USART_Handle_t *pUSART_Handle){
 	uint32_t reg=0;
