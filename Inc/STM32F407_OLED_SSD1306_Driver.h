@@ -22,11 +22,11 @@
 #ifndef STM32F407_OLED_SSD1306_DRIVER_H
 #define STM32F407_OLED_SSD1306_DRIVER_H
 
+#include <main.h>                 // Keil::Device:STM32Cube HAL:Common
 #include <OLED_SSD1306_Fonts.h>
 #include <stdio.h>
 #include <string.h>
 #include "stdint.h"
-#include "main.h"                 // Keil::Device:STM32Cube HAL:Common
 
 #define OLED_I2C_ADDRESS             0x78  // SSD1306 OLED Display I2C Slave address 
 #define STM32F4_I2C_ADDRESS			 0x60	//STM32f4 I2C Master address
