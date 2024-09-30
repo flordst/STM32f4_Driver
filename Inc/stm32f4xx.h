@@ -59,8 +59,20 @@
 #define NVIC_PR_BASEADDR ((volatile uint32_t *)0xE000E400)
 
 /*}*/
-/*//define peripheral address*/
-/* APB1*/
+									/*//define peripheral address*/
+											/* ***APB1****/
+
+//TIMER
+#define TIM2_BASEADDR (APB1_BASEADDR+0x0000)
+#define TIM3_BASEADDR (APB1_BASEADDR+0x0400)
+#define TIM4_BASEADDR (APB1_BASEADDR+0x0800)
+#define TIM5_BASEADDR (APB1_BASEADDR+0x0C00)
+#define TIM6_BASEADDR (APB1_BASEADDR+0x1000)
+#define TIM7_BASEADDR (APB1_BASEADDR+0x1400)
+#define TIM12_BASEADDR (APB1_BASEADDR+0x1800)
+#define TIM13_BASEADDR (APB1_BASEADDR+0x1C00)
+#define TIM14_BASEADDR (APB1_BASEADDR+0x2000)
+
 //UART
 #define USART2_BASEADDR (APB1_BASEADDR+0x4400)
 #define USART3_BASEADDR (APB1_BASEADDR+0x4800)
@@ -74,12 +86,17 @@
 #define I2C2_BASEADDR	(APB1_BASEADDR+0x5800)
 #define I2C3_BASEADDR	(APB1_BASEADDR+0x5C00)
 
-/* APB2*/
+									/* APB2*/
+
+#define TIM1_BASEADDR (APB2_BASEADDR+0x0000)
+#define TIM8_BASEADDR (APB2_BASEADDR+0x0400)
+#define TIM9_BASEADDR (APB2_BASEADDR+0x4000)
+#define TIM10_BASEADDR (APB2_BASEADDR+0x4400)
+#define TIM11_BASEADDR (APB2_BASEADDR+0x4800)
 #define USART1_BASEADDR (APB2_BASEADDR+0x1000)
 #define USART6_BASEADDR (APB2_BASEADDR+0x1400)
 #define EXTI_BASEADDR	(APB2_BASEADDR+0x3C00)
 #define SYSCFG_BASEADDR	(APB2_BASEADDR+0x3800)
-
 
 typedef struct {
 	volatile uint32_t MODER;
@@ -201,6 +218,47 @@ typedef struct{
 #define I2C2 ((I2C_Register_t *)I2C2_BASEADDR)
 #define I2C3 ((I2C_Register_t *)I2C3_BASEADDR)
 
+ 	 	 	 	 	 	 	 	 	 /*******TIMER*****/
+//** GENERAL PUPOSE TIMER **{
+typedef struct{
+	volatile uint32_t CR1;
+	volatile uint32_t CR2;
+	volatile uint32_t SMCR;
+	volatile uint32_t DIER;
+	volatile uint32_t SR;
+	volatile uint32_t EGR;
+	volatile uint32_t CCMR1;
+	volatile uint32_t CCMR2;
+	volatile uint32_t CCER;
+	volatile uint32_t CNT;
+	volatile uint32_t PSC;
+	volatile uint32_t ARR;
+	volatile uint32_t CCR1;
+	volatile uint32_t CCR2;
+	volatile uint32_t CCR3;
+	volatile uint32_t CCR4;
+	volatile uint32_t DCR;
+	volatile uint32_t DMAR;
+	volatile uint32_t OR;
+
+}TIM_Register_t;
+#define TIM1 ((TIM_Register_t *)TIM1_BASEADDR)
+#define TIM2 ((TIM_Register_t *)TIM2_BASEADDR)
+#define TIM3 ((TIM_Register_t *)TIM3_BASEADDR)
+#define TIM4 ((TIM_Register_t *)TIM4_BASEADDR)
+#define TIM5 ((TIM_Register_t *)TIM5_BASEADDR)
+#define TIM6 ((TIM_Register_t *)TIM6_BASEADDR)
+#define TIM7 ((TIM_Register_t *)TIM7_BASEADDR)
+#define TIM8 ((TIM_Register_t *)TIM8_BASEADDR)
+#define TIM9 ((TIM_Register_t *)TIM9_BASEADDR)
+#define TIM10 ((TIM_Register_t *)TIM10_BASEADDR)
+#define TIM11 ((TIM_Register_t *)TIM11_BASEADDR)
+#define TIM12 ((TIM_Register_t *)TIM12_BASEADDR)
+#define TIM13 ((TIM_Register_t *)TIM13_BASEADDR)
+#define TIM14 ((TIM_Register_t *)TIM14_BASEADDR)
+
+
+
 /*Clock enable and disable for GPIO */
 /*Enable Begin*/
 #define GPIOA_PCLK_EN() (RCC->AHB1ENR |= (1<<0))
@@ -259,6 +317,15 @@ typedef struct{
 #define IRQ_UART7	82
 #define IRQ_UART8	83
 
+#define IRQ_TIM9	24
+#define IRQ_TIM10	25
+#define IRQ_TIM2	28
+#define IRQ_TIM3	29
+#define IRQ_TIM4	30
+#define IRQ_TIM5	50
+#define IRQ_TIM6	54
+#define IRQ_TIM7	55
+
 
 /***********/
 
@@ -295,6 +362,24 @@ typedef struct{
 #define I2C3_PCLK_DIS()	(RCC->APB1ENR &=~(1<<23))
 
 /*****************/
+
+/*Clock enable and disable  for TIM*/
+#define TIM2_PCLK_EN()	(RCC->APB1ENR |= (1<<0))
+#define TIM3_PCLK_EN()	(RCC->APB1ENR |= (1<<1))
+#define TIM4_PCLK_EN()	(RCC->APB1ENR |= (1<<2))
+#define TIM5_PCLK_EN()	(RCC->APB1ENR |= (1<<3))
+#define TIM6_PCLK_EN()	(RCC->APB1ENR |= (1<<4))
+#define TIM7_PCLK_EN()	(RCC->APB1ENR |= (1<<5))
+#define TIM12_PCLK_EN()	(RCC->APB1ENR |= (1<<6))
+#define TIM13_PCLK_EN()	(RCC->APB1ENR |= (1<<7))
+#define TIM14_PCLK_EN()	(RCC->APB1ENR |= (1<<8))
+#define TIM1_PCLK_EN()	(RCC->APB2ENR |= (1<<0))
+#define TIM8_PCLK_EN()	(RCC->APB2ENR |= (1<<1))
+#define TIM9_PCLK_EN()	(RCC->APB2ENR |= (1<<16))
+#define TIM10_PCLK_EN()	(RCC->APB2ENR |= (1<<17))
+#define TIM11_PCLK_EN()	(RCC->APB2ENR |= (1<<18))
+
+
 /*Clock enable and disable for SYSCFG*/
 #define SYSCFG_PCLK_EN() (RCC->APB2ENR |=(1<<14))
 #define SYSCFG_PCLK_DIS() (RCC->APB2ENR & =~(1<<14))
