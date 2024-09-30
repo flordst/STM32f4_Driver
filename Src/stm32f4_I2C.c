@@ -151,6 +151,7 @@ void I2C_Init(I2C_Handle_t *pI2C_Handle){
 		reg =(RCC_GetPCLK1() * 300 / 1000000000U) +1;
 	}
 	pI2C_Handle->pI2Cx->TRISE = (reg & 0x3F) ;
+	I2C_PeripheralControl(pI2C_Handle->pI2Cx, ENABLE);
 }
 
 uint8_t I2C_FlagStatus(I2C_Register_t *pI2Cx,uint8_t FlagName){
