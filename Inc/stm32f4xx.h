@@ -86,6 +86,11 @@
 #define I2C2_BASEADDR	(APB1_BASEADDR+0x5800)
 #define I2C3_BASEADDR	(APB1_BASEADDR+0x5C00)
 
+//CAN
+#define CAN1_BASEADDR	(APB1_BASEADDR+0x6400)
+#define CAN2_BASEADDR	(APB1_BASEADDR+0x6800)
+
+
 									/* APB2*/
 
 #define TIM1_BASEADDR (APB2_BASEADDR+0x0000)
@@ -110,17 +115,17 @@ typedef struct {
 	volatile uint32_t AFR[2];
 }GPIO_Register_t;
 
-#define GPIOA ((GPIO_Register_t *)GPIOA_BASEADDR)
-#define GPIOB ((GPIO_Register_t *)GPIOB_BASEADDR)
-#define GPIOC ((GPIO_Register_t *)GPIOC_BASEADDR)
-#define GPIOD ((GPIO_Register_t *)GPIOD_BASEADDR)
-#define GPIOE ((GPIO_Register_t *)GPIOE_BASEADDR)
-#define GPIOF ((GPIO_Register_t *)GPIOF_BASEADDR)
-#define GPIOG ((GPIO_Register_t *)GPIOG_BASEADDR)
-#define GPIOH ((GPIO_Register_t *)GPIOH_BASEADDR)
-#define GPIOI ((GPIO_Register_t *)GPIOI_BASEADDR)
-#define GPIOJ ((GPIO_Register_t *)GPIOJ_BASEADDR)
-#define GPIOK ((GPIO_Register_t *)GPIOK_BASEADDR)
+#define GPIOA (( volatile GPIO_Register_t *)GPIOA_BASEADDR)
+#define GPIOB (( volatile GPIO_Register_t *)GPIOB_BASEADDR)
+#define GPIOC (( volatile GPIO_Register_t *)GPIOC_BASEADDR)
+#define GPIOD (( volatile GPIO_Register_t *)GPIOD_BASEADDR)
+#define GPIOE (( volatile GPIO_Register_t *)GPIOE_BASEADDR)
+#define GPIOF (( volatile GPIO_Register_t *)GPIOF_BASEADDR)
+#define GPIOG (( volatile GPIO_Register_t *)GPIOG_BASEADDR)
+#define GPIOH (( volatile GPIO_Register_t *)GPIOH_BASEADDR)
+#define GPIOI (( volatile GPIO_Register_t *)GPIOI_BASEADDR)
+#define GPIOJ (( volatile GPIO_Register_t *)GPIOJ_BASEADDR)
+#define GPIOK (( volatile GPIO_Register_t *)GPIOK_BASEADDR)
 
 /*define RCC*/
 typedef struct{
@@ -190,14 +195,14 @@ typedef struct{
 	volatile uint32_t GTPR;
 }USART_Register_t;
 
-#define USART1 ((USART_Register_t *)USART1_BASEADDR)
-#define USART2 ((USART_Register_t *)USART2_BASEADDR)
-#define USART3 ((USART_Register_t *)USART3_BASEADDR)
-#define UART4 ((USART_Register_t *)UART4_BASEADDR)
-#define UART5 ((USART_Register_t *)UART5_BASEADDR)
-#define USART6 ((USART_Register_t *)USART6_BASEADDR)
-#define UART7 ((USART_Register_t *)UART7_BASEADDR)
-#define UART8 ((USART_Register_t *)UART8_BASEADDR)
+#define USART1 ((volatile USART_Register_t *)USART1_BASEADDR)
+#define USART2 ((volatile USART_Register_t *)USART2_BASEADDR)
+#define USART3 ((volatile USART_Register_t *)USART3_BASEADDR)
+#define UART4 ((volatile USART_Register_t *)UART4_BASEADDR)
+#define UART5 ((volatile USART_Register_t *)UART5_BASEADDR)
+#define USART6 ((volatile USART_Register_t *)USART6_BASEADDR)
+#define UART7 ((volatile USART_Register_t *)UART7_BASEADDR)
+#define UART8 ((volatile USART_Register_t *)UART8_BASEADDR)
 //}
 
 //**I2C**{
@@ -214,12 +219,70 @@ typedef struct{
 	volatile uint32_t FLTR;
 }I2C_Register_t;
 
-#define I2C1 ((I2C_Register_t *)I2C1_BASEADDR)
-#define I2C2 ((I2C_Register_t *)I2C2_BASEADDR)
-#define I2C3 ((I2C_Register_t *)I2C3_BASEADDR)
+#define I2C1 (( volatile I2C_Register_t *)I2C1_BASEADDR)
+#define I2C2 (( volatile I2C_Register_t *)I2C2_BASEADDR)
+#define I2C3 (( volatile I2C_Register_t *)I2C3_BASEADDR)
+
+											/*******CAN********/
+/** CAN TxMailBox **/
+typedef struct
+{
+  volatile uint32_t TIR;
+  volatile uint32_t TDTR;
+  volatile uint32_t TDLR;
+  volatile uint32_t TDHR;
+
+} CAN_TxMailBox_t;
+
+/** CAN FIFOMailBox **/
+typedef struct
+{
+  volatile uint32_t RIR;
+  volatile uint32_t RDTR;
+  volatile uint32_t RDLR;
+  volatile uint32_t RDHR;
+} CAN_FIFOMailBox_t;
+
+/** CAN FilterRegister **/
+typedef struct
+{
+  volatile uint32_t FR1;
+  volatile uint32_t FR2;
+} CAN_FilterRegister_t;
+
+/** CAN register  **/
+typedef struct
+{
+	volatile uint32_t MCR;
+	volatile uint32_t MSR;
+	volatile uint32_t TSR;
+	volatile uint32_t RF0R;
+	volatile uint32_t RF1R;
+	volatile uint32_t IER;
+	volatile uint32_t ESR;
+	volatile uint32_t BTR;
+	uint32_t RESERVED0[88];
+	CAN_TxMailBox_t TxMailBox[3];
+    CAN_FIFOMailBox_t FIFOMailBox[2];
+    uint32_t  RESERVED1[12];
+    volatile uint32_t FMR;
+    volatile uint32_t FM1R;
+    uint32_t  RESERVED2;
+    volatile uint32_t FS1R;
+    uint32_t  RESERVED3;
+    volatile uint32_t FFA1R;
+    uint32_t  RESERVED4;
+    volatile uint32_t FA1R;
+    uint32_t  RESERVED5[8];
+    CAN_FilterRegister_t FilterBankRegister[28];
+
+}CAN_Register_t;
+
+#define CAN1 ((volatile CAN_Register_t *)CAN1_BASEADDR)
+#define CAN2 ((volatile CAN_Register_t *)CAN2_BASEADDR)
+
 
  	 	 	 	 	 	 	 	 	 /*******TIMER*****/
-//** GENERAL PUPOSE TIMER **{
 typedef struct{
 	volatile uint32_t CR1;
 	volatile uint32_t CR2;
@@ -242,20 +305,20 @@ typedef struct{
 	volatile uint32_t OR;
 
 }TIM_Register_t;
-#define TIM1 ((TIM_Register_t *)TIM1_BASEADDR)
-#define TIM2 ((TIM_Register_t *)TIM2_BASEADDR)
-#define TIM3 ((TIM_Register_t *)TIM3_BASEADDR)
-#define TIM4 ((TIM_Register_t *)TIM4_BASEADDR)
-#define TIM5 ((TIM_Register_t *)TIM5_BASEADDR)
-#define TIM6 ((TIM_Register_t *)TIM6_BASEADDR)
-#define TIM7 ((TIM_Register_t *)TIM7_BASEADDR)
-#define TIM8 ((TIM_Register_t *)TIM8_BASEADDR)
-#define TIM9 ((TIM_Register_t *)TIM9_BASEADDR)
-#define TIM10 ((TIM_Register_t *)TIM10_BASEADDR)
-#define TIM11 ((TIM_Register_t *)TIM11_BASEADDR)
-#define TIM12 ((TIM_Register_t *)TIM12_BASEADDR)
-#define TIM13 ((TIM_Register_t *)TIM13_BASEADDR)
-#define TIM14 ((TIM_Register_t *)TIM14_BASEADDR)
+#define TIM1 (( volatile TIM_Register_t *)TIM1_BASEADDR)
+#define TIM2 (( volatile TIM_Register_t *)TIM2_BASEADDR)
+#define TIM3 (( volatile TIM_Register_t *)TIM3_BASEADDR)
+#define TIM4 (( volatile TIM_Register_t *)TIM4_BASEADDR)
+#define TIM5 (( volatile TIM_Register_t *)TIM5_BASEADDR)
+#define TIM6 (( volatile TIM_Register_t *)TIM6_BASEADDR)
+#define TIM7 (( volatile TIM_Register_t *)TIM7_BASEADDR)
+#define TIM8 (( volatile TIM_Register_t *)TIM8_BASEADDR)
+#define TIM9 (( volatile TIM_Register_t *)TIM9_BASEADDR)
+#define TIM10 (( volatile TIM_Register_t *)TIM10_BASEADDR)
+#define TIM11 (( volatile TIM_Register_t *)TIM11_BASEADDR)
+#define TIM12 (( volatile TIM_Register_t *)TIM12_BASEADDR)
+#define TIM13 (( volatile TIM_Register_t *)TIM13_BASEADDR)
+#define TIM14 (( volatile TIM_Register_t *)TIM14_BASEADDR)
 
 
 
@@ -379,6 +442,9 @@ typedef struct{
 #define TIM10_PCLK_EN()	(RCC->APB2ENR |= (1<<17))
 #define TIM11_PCLK_EN()	(RCC->APB2ENR |= (1<<18))
 
+
+#define CAN1_PCLK_EN() 	(RCC->APB1ENR |= (1<<25))
+#define CAN2_PCLK_EN() 	(RCC->APB1ENR |= (1<<25))
 
 /*Clock enable and disable for SYSCFG*/
 #define SYSCFG_PCLK_EN() (RCC->APB2ENR |=(1<<14))
